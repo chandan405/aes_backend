@@ -13,6 +13,10 @@ const options: swaggerJSDoc.Options = {
         url: 'http://localhost:5000',
         description: 'Development Server',
       },
+      {
+        url: 'https://aesbackend.netlify.app',
+        description: 'Production Server',
+      },
     ],
     components: {
       securitySchemes: {

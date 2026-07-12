@@ -24,8 +24,18 @@ import uploadRoutes from './routes/upload.routes';
 import userRoutes from './routes/user.routes';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './config/swagger';
+import mongoose from 'mongoose';
+import { connectDB } from './config/database';
+import logger from './utils/logger';
 
 const app: Application = express();
+
+// Connect to Database dynamically (essential for serverless platforms like Vercel)
+if (mongoose.connection.readyState === 0) {
+  connectDB().catch((err) => {
+    logger.error('Failed to connect to database in app startup:', err);
+  });
+}
 
 // ── Security Middleware ──────────────────────────────────────────────────────
 app.use(helmet({

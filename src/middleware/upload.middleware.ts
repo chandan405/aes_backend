@@ -4,9 +4,9 @@ import fs from 'fs';
 import { Request } from 'express';
 import { AppError } from '../utils/AppError';
 
-// ── Local disk storage (fallback) ────────────────────────────────────────────
+const isVercel = process.env.VERCEL === '1';
 const uploadsDir = path.join(__dirname, '../../uploads');
-if (!fs.existsSync(uploadsDir)) {
+if (!isVercel && !fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 

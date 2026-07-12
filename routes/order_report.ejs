@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Order Receipt</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', 'Inter', Arial, Helvetica, sans-serif;
+            padding: 25px;
+            color: #333;
+            background-color: #f7f9fa;
+        }
+
+        .invoice-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eef2f5;
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+        }
+
+        .header-left h1 {
+            color: #10b981;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .header-left p {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending { background-color: #fef3c7; color: #d97706; }
+        .status-preparing { background-color: #e0f2fe; color: #0284c7; }
+        .status-completed { background-color: #dcfce7; color: #15803d; }
+        .status-cancelled { background-color: #fee2e2; color: #b91c1c; }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .details-block h3 {
+            font-size: 14px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .details-block p {
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        .details-block strong {
+            color: #0f172a;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .items-table th {
+            background-color: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 13px;
+            border-bottom: 2px solid #edf2f7;
+        }
+
+        .items-table td {
+            padding: 16px;
+            font-size: 14px;
+            color: #334155;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .items-table th.num, .items-table td.num {
+            text-align: right;
+        }
+
+        .summary-wrapper {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .summary-table {
+            width: 300px;
+            font-size: 14px;
+        }
+
+        .summary-table td {
+            padding: 8px 0;
+            color: #64748b;
+        }
+
+        .summary-table td.val {
+            text-align: right;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .summary-table tr.total-row td {
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .summary-table tr.total-row td.val {
+            color: #10b981;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 25px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .footer h4 {
+            color: #475569;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="invoice-card">
+        <div class="header">
+            <div class="header-left">
+                <h1>☕ Cafe Management</h1>
+                <p>Order Receipt & Summary</p>
+            </div>
+            <div class="header-right">
+                <% 
+                   let statusClass = 'status-pending';
+                   if (order.status.toLowerCase() === 'preparing') statusClass = 'status-preparing';
+                   else if (order.status.toLowerCase() === 'completed') statusClass = 'status-completed';
+                   else if (order.status.toLowerCase() === 'cancelled') statusClass = 'status-cancelled';
+                %>
+                <span class="status-badge <%= statusClass %>"><%= order.status %></span>
+            </div>
+        </div>
+
+        <div class="details-grid">
+            <div class="details-block">
+                <h3>Order Details</h3>
+                <p><strong>Order ID:</strong> #<%= order.id %></p>
+                <p><strong>Date:</strong> <%= new Date(order.orderDate).toLocaleString() %></p>
+            </div>
+            <div class="details-block">
+                <h3>Customer Information</h3>
+                <% if (order.customer) { %>
+                    <p><strong>Name:</strong> <%= order.customer.name %></p>
+                    <p><strong>Email:</strong> <%= order.customer.email %></p>
+                    <p><strong>Contact:</strong> <%= order.customer.contactNumber %></p>
+                <% } else { %>
+                    <p>Guest Customer</p>
+                <% } %>
+            </div>
+        </div>
+
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th class="num">Quantity</th>
+                    <th class="num">Unit Price</th>
+                    <th class="num">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% order.products.forEach(product => { %>
+                    <tr>
+                        <td>
+                            <strong><%= product.name %></strong>
+                            <% if (product.description) { %>
+                                <div style="font-size: 12px; color: #64748b; margin-top: 2px;"><%= product.description %></div>
+                            <% } %>
+                        </td>
+                        <td class="num"><%= product.quantity %></td>
+                        <td class="num">₹ <%= Number(product.price).toFixed(2) %></td>
+                        <td class="num">₹ <%= Number(product.total).toFixed(2) %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <div class="summary-wrapper">
+            <table class="summary-table">
+                <tr>
+                    <td>Subtotal</td>
+                    <td class="val">₹ <%= Number(order.totalPrice).toFixed(2) %></td>
+                </tr>
+                <tr>
+                    <td>GST Included (5%)</td>
+                    <td class="val">₹ <%= (Number(order.totalPrice) * 0.05).toFixed(2) %></td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total Amount</td>
+                    <td class="val">₹ <%= Number(order.totalPrice).toFixed(2) %></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="footer">
+            <h4>Thank you for your order! ☕</h4>
+            <p>Your satisfaction is our top priority. Please visit us again!</p>
+            <p style="margin-top: 10px; font-size: 11px;">This is a computer-generated summary of order #<%= order.id %>.</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

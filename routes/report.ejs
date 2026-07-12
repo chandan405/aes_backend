@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cafe Invoice</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 25px;
+            color: #333;
+        }
+
+        .invoice {
+            border: 2px solid #444;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed #777;
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            color: #4CAF50;
+            font-size: 32px;
+        }
+
+        .header p {
+            font-size: 14px;
+        }
+
+        .details {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .details td {
+            padding: 6px;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .summary {
+            margin-top: 20px;
+            width: 40%;
+            float: right;
+        }
+
+        .summary td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .grandTotal {
+            background: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+
+        .footer {
+            clear: both;
+            margin-top: 70px;
+            text-align: center;
+            border-top: 2px dashed #777;
+            padding-top: 15px;
+        }
+
+        .footer h3 {
+            color: #4CAF50;
+        }
+
+        .footer p {
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="invoice">
+
+        <div class="header">
+
+            <h1>☕ Cafe Management System</h1>
+
+            <p>123 MG Road, Bangalore</p>
+
+            <p>Phone : +91 9876543210</p>
+
+            <p>Email : cafe@gmail.com</p>
+
+        </div>
+
+        <table class="details">
+
+            <tr>
+                <td><strong>Invoice No:</strong>
+                    <%= invoiceId %>
+                </td>
+                <td class="right"><strong>Date:</strong>
+                    <%= currentDate %>
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Customer:</strong>
+                    <%= name %>
+                </td>
+                <td class="right"><strong>Email:</strong>
+                    <%= userEmail %>
+                </td>
+            </tr>
+
+            <tr>
+                <td><strong>Contact:</strong>
+                    <%= contactNumber %>
+                </td>
+                <td class="right"><strong>Payment:</strong>
+                    <%= paymentMethod %>
+                </td>
+            </tr>
+
+        </table>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+
+                    <th>Product</th>
+
+                    <th>Qty</th>
+
+                    <th>Price</th>
+
+                    <th>Total</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <% let grandTotal=0; productDetails.forEach((item,index)=>{
+
+                    let total=item.quantity * item.price;
+
+                    grandTotal += total;
+
+                    %>
+
+                    <tr>
+
+                        <td>
+                            <%= index+1 %>
+                        </td>
+
+                        <td>
+                            <%= item.name %>
+                        </td>
+
+                        <td>
+                            <%= item.quantity %>
+                        </td>
+
+                        <td>₹ <%= item.price %>
+                        </td>
+
+                        <td>₹ <%= total %>
+                        </td>
+
+                    </tr>
+
+                    <% }) %>
+
+            </tbody>
+
+        </table>
+
+        <table class="summary">
+
+            <tr>
+
+                <td>Sub Total</td>
+
+                <td>₹ <%= grandTotal %>
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>GST (5%)</td>
+
+                <td>₹ <%= (grandTotal*0.05).toFixed(2) %>
+                </td>
+
+            </tr>
+
+            <tr class="grandTotal">
+
+                <td>Grand Total</td>
+
+                <td>
+
+                    ₹ <%= (grandTotal+(grandTotal*0.05)).toFixed(2) %>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+        <div class="footer">
+
+            <h3>Thank You ☕</h3>
+
+            <p>We hope you enjoyed your visit.</p>
+
+            <p>Please visit again!</p>
+
+            <p>This is a computer generated invoice.</p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

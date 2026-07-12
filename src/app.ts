@@ -22,6 +22,8 @@ import contactRoutes from './routes/contact.routes';
 import dashboardRoutes from './routes/dashboard.routes';
 import uploadRoutes from './routes/upload.routes';
 import userRoutes from './routes/user.routes';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
 
 const app: Application = express();
 
@@ -103,6 +105,9 @@ app.get('/api/health', (_req: Request, res: Response) => {
     version: '1.0.0',
   });
 });
+
+// ── Swagger Documentation ───────────────────────────────────────────────────
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // ── API Routes ───────────────────────────────────────────────────────────────
 app.use('/api/auth', authRoutes);

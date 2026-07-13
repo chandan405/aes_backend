@@ -26,6 +26,7 @@ import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './config/swagger';
 import mongoose from 'mongoose';
 import { connectDB } from './config/database';
+import { configureCloudinary } from './config/cloudinary';
 import logger from './utils/logger';
 
 const app: Application = express();
@@ -36,6 +37,9 @@ if (mongoose.connection.readyState === 0) {
     logger.error('Failed to connect to database in app startup:', err);
   });
 }
+
+// Initialize Cloudinary configuration
+configureCloudinary();
 
 // ── Security Middleware ──────────────────────────────────────────────────────
 app.use(helmet({

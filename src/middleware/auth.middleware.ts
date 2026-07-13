@@ -15,7 +15,7 @@ export const protect = async (req: AuthRequest, _res: Response, next: NextFuncti
     }
 
     const token = authHeader.split(' ')[1];
-    const secret = process.env.JWT_SECRET!;
+    const secret = process.env.JWT_SECRET || 'aesSecreateKey6370';
     const decoded = jwt.verify(token, secret) as { id: string };
 
     const user = await User.findById(decoded.id).select('-passwordHash -refreshToken');

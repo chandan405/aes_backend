@@ -10,10 +10,10 @@ import { sendEmail, passwordResetEmail } from '../utils/email';
 import logger from '../utils/logger';
 
 const generateTokens = (userId: string) => {
-  const accessToken = jwt.sign({ id: userId }, process.env.JWT_SECRET!, {
+  const accessToken = jwt.sign({ id: userId }, process.env.JWT_SECRET || 'aesSecreateKey6370', {
     expiresIn: process.env.JWT_EXPIRES_IN || '15m',
   } as jwt.SignOptions);
-  const refreshToken = jwt.sign({ id: userId }, process.env.REFRESH_TOKEN_SECRET!, {
+  const refreshToken = jwt.sign({ id: userId }, process.env.REFRESH_TOKEN_SECRET || 'aesRefreshSecreateKey6370', {
     expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN || '7d',
   } as jwt.SignOptions);
   return { accessToken, refreshToken };
@@ -49,7 +49,7 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     const { refreshToken: token } = req.body;
     if (!token) return next(new AppError('Refresh token required', 400));
 
-    const decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET!) as { id: string };
+    const decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET || 'aesRefreshSecreateKey6370') as { id: string };
     const user = await User.findById(decoded.id);
     if (!user || user.refreshToken !== token) {
       return next(new AppError('Invalid refresh token', 401));

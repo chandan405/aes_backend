@@ -13,8 +13,8 @@ export const uploadToCloudinary = async (
   folder = 'aes'
 ): Promise<UploadResult> => {
   if (!process.env.CLOUDINARY_CLOUD_NAME || !file.buffer) {
-    // Local storage — file.path is set
-    const baseUrl = `${process.env.BACKEND_URL || 'http://localhost:5000'}`;
+    const isProduction = process.env.NODE_ENV === 'production';
+    const baseUrl = `${process.env.BACKEND_URL || (isProduction ? 'https://aes-backend-dto8.onrender.com' : 'http://localhost:5000')}`;
     const filename = file.filename || path.basename(file.path || '');
     return { imageUrl: `${baseUrl}/uploads/${filename}` };
   }

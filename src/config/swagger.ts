@@ -14,7 +14,7 @@ const options: swaggerJSDoc.Options = {
         description: 'Development Server',
       },
       {
-        url: 'https://aesbackend-sigma.vercel.app',
+        url: 'https://aes-backend-dto8.onrender.com',
         description: 'Production Server',
       },
     ],

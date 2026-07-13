@@ -45,6 +45,8 @@ app.use(helmet({
 const allowedOrigins = [
   'http://localhost:4200',
   'http://127.0.0.1:4200',
+  'https://abinashengineeringservice.vercel.app',
+  'https://abinashengineeringservice.vercel.com',
 ];
 
 if (process.env.FRONTEND_URL) {
@@ -63,14 +65,16 @@ app.use(cors({
                   origin.startsWith('http://172.') ||
                   origin.startsWith('http://10.');
 
-    if (isDevelopment && isLocal) {
+    const isVercelDomain = origin.endsWith('.vercel.app') || origin.endsWith('.vercel.com');
+
+    if ((isDevelopment && isLocal) || isLocal || isVercelDomain) {
       return callback(null, true);
     }
 
     if (allowedOrigins.indexOf(origin) !== -1) {
       return callback(null, true);
     } else {
-      return callback(new Error('Not allowed by CORS'), false);
+      return callback(null, false);
     }
   },
   credentials: true,

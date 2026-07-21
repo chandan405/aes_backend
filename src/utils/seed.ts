@@ -81,12 +81,17 @@ const seed = async () => {
   logger.info('Connected to MongoDB for seeding...');
 
   // Admin user
-  const existingAdmin = await User.findOne({ email: process.env.ADMIN_EMAIL || 'admin@aes.com' });
+  const adminEmail = process.env.ADMIN_EMAIL || 'abinash.ndtservices@gmail.com';
+  const existingAdmin = await User.findOne({ email: adminEmail });
   if (!existingAdmin) {
-    const passwordHash = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'Admin@123456', 12);
+    const adminPassword = process.env.ADMIN_PASSWORD;
+    if (!adminPassword) {
+      throw new Error('❌ Database seeding aborted: ADMIN_PASSWORD environment variable is not defined!');
+    }
+    const passwordHash = await bcrypt.hash(adminPassword, 12);
     await User.create({
       name: process.env.ADMIN_NAME || 'Super Admin',
-      email: process.env.ADMIN_EMAIL || 'admin@aes.com',
+      email: adminEmail,
       passwordHash,
       role: 'SUPER_ADMIN',
     });

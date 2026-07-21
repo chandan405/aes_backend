@@ -52,6 +52,8 @@ const allowedOrigins = [
   'http://127.0.0.1:4200',
   'https://abinashengineeringservice.vercel.app',
   'https://abinashengineeringservice.vercel.com',
+  'https://www.aesndt.in',
+  'https://aesndt.in',
 ];
 
 if (process.env.FRONTEND_URL) {

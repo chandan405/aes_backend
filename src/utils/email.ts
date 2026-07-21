@@ -71,6 +71,7 @@ export const trainingRegistrationUserEmail = (name: string, courseName: string):
 <body>
   <div class="container">
     <div class="header">
+      <img src="https://www.aesndt.in/companylogo.png" alt="AES Logo" style="height: 60px; width: auto; display: block; margin: 0 auto 15px auto;" />
       <h1>AES Training</h1>
       <p>Abinash Engineering Services</p>
     </div>
@@ -82,10 +83,10 @@ export const trainingRegistrationUserEmail = (name: string, courseName: string):
         <strong>Status:</strong> Pending Review
       </div>
       <p>Our team will contact you within 2-3 business days with further details regarding the training schedule and confirmation.</p>
-      <p>For any queries, contact us at: <strong>admin@aes.com</strong></p>
+      <p>For any queries, contact us at: <strong>abinash.ndtservices@gmail.com</strong> or call <strong>+91 82493 52281</strong></p>
     </div>
     <div class="footer">
-      <p>© 2024 Abinash Engineering Services | Pipili, Odisha | Gandhinagar, Gujarat</p>
+      <p>© 2026 Abinash Engineering Services | Pipili, Odisha | Gandhinagar, Gujarat</p>
     </div>
   </div>
 </body>
@@ -99,7 +100,7 @@ export const trainingRegistrationAdminEmail = (student: Record<string, string>):
   <style>
     body { font-family: Arial, sans-serif; background: #f4f6f9; }
     .container { max-width: 600px; margin: 30px auto; background: #fff; border-radius: 8px; overflow: hidden; }
-    .header { background: #0A1628; padding: 20px 30px; }
+    .header { background: #0A1628; padding: 20px 30px; text-align: center; }
     .header h1 { color: #F5A623; margin: 0; font-size: 20px; }
     table { width: 100%; border-collapse: collapse; margin: 20px 0; }
     td { padding: 10px 30px; border-bottom: 1px solid #eee; }
@@ -108,7 +109,10 @@ export const trainingRegistrationAdminEmail = (student: Record<string, string>):
 </head>
 <body>
   <div class="container">
-    <div class="header"><h1>🔔 New Training Registration</h1></div>
+    <div class="header">
+      <img src="https://www.aesndt.in/companylogo.png" alt="AES Logo" style="height: 50px; width: auto; display: block; margin: 0 auto 10px auto;" />
+      <h1>🔔 New Training Registration</h1>
+    </div>
     <table>
       <tr><td>Name</td><td>${student.name}</td></tr>
       <tr><td>Email</td><td>${student.email}</td></tr>
@@ -131,7 +135,7 @@ export const contactEnquiryAdminEmail = (data: Record<string, string>): string =
   <style>
     body { font-family: Arial, sans-serif; background: #f4f6f9; }
     .container { max-width: 600px; margin: 30px auto; background: #fff; border-radius: 8px; overflow: hidden; }
-    .header { background: #0A1628; padding: 20px 30px; }
+    .header { background: #0A1628; padding: 20px 30px; text-align: center; }
     .header h1 { color: #F5A623; margin: 0; font-size: 20px; }
     table { width: 100%; border-collapse: collapse; margin: 20px 0; }
     td { padding: 10px 30px; border-bottom: 1px solid #eee; }
@@ -140,7 +144,10 @@ export const contactEnquiryAdminEmail = (data: Record<string, string>): string =
 </head>
 <body>
   <div class="container">
-    <div class="header"><h1>📩 New Contact Enquiry</h1></div>
+    <div class="header">
+      <img src="https://www.aesndt.in/companylogo.png" alt="AES Logo" style="height: 50px; width: auto; display: block; margin: 0 auto 10px auto;" />
+      <h1>📩 New Contact Enquiry</h1>
+    </div>
     <table>
       <tr><td>Name</td><td>${data.name}</td></tr>
       <tr><td>Email</td><td>${data.email}</td></tr>
@@ -176,6 +183,7 @@ export const passwordResetEmail = (name: string, resetUrl: string): string => `
 <body>
   <div class="container">
     <div class="header">
+      <img src="https://www.aesndt.in/companylogo.png" alt="AES Logo" style="height: 60px; width: auto; display: block; margin: 0 auto 15px auto;" />
       <h1>AES Admin Portal</h1>
       <p>Abinash Engineering Services</p>
     </div>
@@ -193,7 +201,7 @@ export const passwordResetEmail = (name: string, resetUrl: string): string => `
       <p style="word-break: break-all; font-size: 12px; color: #0A1628;"><a href="${resetUrl}">${resetUrl}</a></p>
     </div>
     <div class="footer">
-      <p>© 2024 Abinash Engineering Services | Pipili, Odisha | Gandhinagar, Gujarat</p>
+      <p>© 2026 Abinash Engineering Services | Pipili, Odisha | Gandhinagar, Gujarat</p>
     </div>
   </div>
 </body>

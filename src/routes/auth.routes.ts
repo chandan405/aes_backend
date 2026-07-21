@@ -22,10 +22,10 @@ const router = Router();
  *             properties:
  *               email:
  *                 type: string
- *                 example: admin@aes.com
+ *                 example: abinash.ndtservices@gmail.com
  *               password:
  *                 type: string
- *                 example: Admin@123456
+ *                 example: YourSecurePassword
  *     responses:
  *       200:
  *         description: Login successful

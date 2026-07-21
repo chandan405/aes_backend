@@ -73,8 +73,9 @@ app.use(cors({
                   origin.startsWith('http://10.');
 
     const isVercelDomain = origin.endsWith('.vercel.app') || origin.endsWith('.vercel.com');
+    const isAesDomain = origin.endsWith('.aesndt.in') || origin === 'https://aesndt.in' || origin === 'http://aesndt.in';
 
-    if ((isDevelopment && isLocal) || isLocal || isVercelDomain) {
+    if ((isDevelopment && isLocal) || isLocal || isVercelDomain || isAesDomain) {
       return callback(null, true);
     }
 
